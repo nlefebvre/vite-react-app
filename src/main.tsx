@@ -11,8 +11,23 @@ Amplify.configure(outputs);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <Authenticator>
-      <App />
+    <Authenticator formFields={{
+      signUp: {
+
+        displayName: {
+          label: 'Display Name',
+          isRequired: true
+        }
+      }
+    }}>
+      {({ signOut, user }) => (
+        <main>
+          <h2>Hello {user.username}</h2>
+          {/* <h2>Hello {user.preferredUsername}</h2> */}
+          <button onClick={signOut}>Sign out</button>
+          <App />
+        </main>
+      )}
     </Authenticator>
   </React.StrictMode>
 );

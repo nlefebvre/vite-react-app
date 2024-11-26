@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import type { Schema } from "../amplify/data/resource";
 import { generateClient } from "aws-amplify/data";
+import { signOut } from 'aws-amplify/auth';
+
 
 const client = generateClient<Schema>();
 
@@ -41,6 +43,7 @@ function App() {
         <a href="https://docs.amplify.aws/react/start/quickstart/#make-frontend-updates">
           Review next step of this tutorial.
         </a>
+        <button onClick={async () => await signOut()}>logout</button>
       </div>
     </main>
   );
