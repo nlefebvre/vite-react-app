@@ -13,17 +13,15 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <Authenticator formFields={{
       signUp: {
-
         displayName: {
           label: 'Display Name',
-          isRequired: true
+          isRequired: true,
+
         }
       }
     }}>
-      {({ signOut, user }) => (
+      {({ signOut, user, }) => (
         <main>
-          <h2>Hello {user.username}</h2>
-          {/* <h2>Hello {user.preferredUsername}</h2> */}
           <button onClick={signOut}>Sign out</button>
           <App />
         </main>
