@@ -12,7 +12,6 @@ function ScoreEntry() {
   const [timeInSeconds, setTimeInSeconds] = useState<number>(0);
   const [edit, setEdit] = useState<boolean>(false);
   const [userId, setUserId] = useState<string>()
-
   getCurrentUser().then((ass) => {
     ass.userId
   })

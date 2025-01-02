@@ -7,7 +7,7 @@ import outputs from "../amplify_outputs.json";
 import { Authenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 import { BrowserRouter, Routes, Route } from "react-router";
-// import ConnectionsApp from "./connections/ConnectionsApp.tsx";
+import ConnectionsApp from "./connections/ConnectionsApp.tsx";
 
 Amplify.configure(outputs);
 
@@ -15,7 +15,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
-        {/* <Route path="/connections" element={<ConnectionsApp />} /> */}
+        <Route path="/connections" element={<ConnectionsApp />} />
         <Route path="/" element={<Authenticator formFields={{
           signUp: {
             displayName: {

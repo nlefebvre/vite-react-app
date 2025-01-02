@@ -1,4 +1,5 @@
 import { type ClientSchema, a, defineData } from "@aws-amplify/backend";
+import { connectionsData } from "../connectionsData/resource";
 
 /*== STEP 1 ===============================================================
 The section below creates a Todo database table with a "content" field. Try
@@ -19,7 +20,27 @@ const schema = a.schema({
       user: a.string()
     })
     .authorization((allow) => [allow.publicApiKey()]),
-});
+  DailyPuzzle: a
+    .model({
+      day: a.date(),
+      puzzle: a.json()
+    })
+    .authorization((allow) => [allow.publicApiKey()]),
+  FetchConnectionsData: a
+    .query()
+    .arguments({
+      name: a.string(),
+      date: a.string(),
+    })
+    .returns(a.json()
+      // {
+      //   answer: a.string(),
+      //   board: a.json()
+      // }
+    )
+    .handler(a.handler.function(connectionsData))
+    .authorization((allow) => [allow.publicApiKey()]),
+}).authorization((allow) => [allow.resource(connectionsData)]);
 
 export type Schema = ClientSchema<typeof schema>;
 

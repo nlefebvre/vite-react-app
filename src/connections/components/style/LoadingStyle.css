@@ -1,0 +1,36 @@
+
+/* HTML: <div class="loader"></div> */
+/* .loader {
+  width: 90px;
+  height: 14px;
+  background: radial-gradient(circle closest-side,#000 92%,#0000) calc(100%/3) 0/calc(100%/4) 100%;
+  animation: l2 0.5s infinite linear;
+} */
+/* @keyframes l1 {
+    100% {background-position: 0 0}
+} */
+
+/* HTML: <div class="loader"></div> */
+.loader {
+  width: 100px;
+  height: 30px;
+  padding: 8px;
+  margin: 3px;
+  opacity: 35%;
+  border-radius:8px;
+
+  background:
+  linear-gradient(90deg,
+  #ECB000 0,   calc(25% - 5px), #0000 0 25%,
+  #01B100 25%, calc(50% - 5px), #0000 0 50%,
+  #025DF2 50%, calc(75% - 5px), #0000 0 75%,
+  #B930FF 75%, calc(100% - 5px), #0000 0 100%);
+
+  background-position: 0 50%;
+  background-size: calc(3*100%/4) 50%;
+  background-repeat: repeat-x;
+  animation: l9 2.5s infinite linear;
+}
+@keyframes l9 {
+    100% {background-position: -300% 50%}
+}
