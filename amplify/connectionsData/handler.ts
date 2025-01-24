@@ -36,7 +36,7 @@ export const handler: Schema["FetchConnectionsData"]["functionHandler"] = async 
               const nytResponse = await fetch(`https://www.nytimes.com/svc/connections/v2/${event.arguments.date}.json`);
               const value = await nytResponse.json();
               console.log("value", value);
-              const res = await client.models.DailyPuzzle.create({ day: event.arguments.date, puzzle: value });
+              const res = await client.models.DailyPuzzle.create({ day: event.arguments.date, puzzle: JSON.stringify(value) });
               console.log("res", res);
               return resolve(value)
             } else {
