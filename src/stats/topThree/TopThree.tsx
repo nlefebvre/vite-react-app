@@ -1,4 +1,4 @@
-import { formatTime } from "../../utils/timeFormatter";
+import { formatTime } from "../../utils/TimeFormatter";
 
 
 

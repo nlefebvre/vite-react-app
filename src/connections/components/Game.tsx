@@ -3,6 +3,7 @@ import { board } from "./exampleBoard";
 import Board, { card } from "./Board2";
 import { buildEmojiResponse, copyToClipboard, loadHistory, storeHistory } from "../results";
 import { alreadyBeenGuessed, isOneAway } from "../gameTools/guesses";
+import Snackbar from '@mui/material/Snackbar';
 
 
 export type category = typeof board['categories'][0]
@@ -131,13 +132,15 @@ const removeCategoryFromDeck = (deck: card[], categories: string[], deselect: bo
 
 const Game = (props: GameProps) => {
   const [deck, setDeck] = useState(generateDeck(props.categories));
+  const [showOneAway, setShowOneAway] = useState(false);
+  const [showAlreadyGuessed, setShowAlreadyGuessed] = useState(false);
   // console.log('deck is', deck.length, deck)
   const [completed, setCompleted] = useState<Array<[category, CategoryPosition]>>([])
   // const [selected, setSelected] = useState<Record<string, boolean>>({});
 
   const [count, setCount] = useState<number>(0);
   // const [mistakes, setMistakes] = useState<number>(4);
-  const activeGroup: 0 | 1 | 2 | 3 | 4 = useMemo(() => Math.floor(count / 4) + 1, [count]);
+  const activeGroup: number = useMemo(() => Math.floor(count / 4) + 1, [count]);
   const cardsInActiveGroup = useMemo(() => count % 4, [count]);
 
   const [guessHistory, setGuessHistory] = useState<Array<GuessHistoryEntry>>([])
@@ -146,7 +149,9 @@ const Game = (props: GameProps) => {
   const removeCategory = useCallback((categories: string[], deselect: boolean) => {
     const newD = removeCategoryFromDeck(deck, categories, deselect);
     setDeck(newD);
-    setCount(0);
+    if (deselect) {
+      setCount(0);
+    }
   }, [deck]);
 
 
@@ -184,7 +189,7 @@ const Game = (props: GameProps) => {
     else if (count < 4 * MAX_GROUPS) {
       // guessGroups
       // card.selected = 1; // use current guess count
-      card.selected = activeGroup;
+      card.selected = activeGroup as 1 | 2 | 3 | 4;
 
       setCount(count + 1);
     }
@@ -236,6 +241,12 @@ const Game = (props: GameProps) => {
             catsToRemove.push(category);
           }
         }
+        if (alreadyGuessed) {
+          setShowAlreadyGuessed(true);
+        }
+        if (oneAway) {
+          setShowOneAway(true);
+        }
       }
       storeHistory(props.date, newGuessHist);
       setGuessHistory(newGuessHist)
@@ -267,14 +278,28 @@ const Game = (props: GameProps) => {
 
   return (
     <>
+      <Snackbar
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        open={showOneAway}
+        autoHideDuration={4000}
+        message="One Away!"
+        onClose={() => setShowOneAway(false)}
+        key={"one-away"} />
+      <Snackbar
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        open={showAlreadyGuessed}
+        autoHideDuration={4000}
+        onClose={() => setShowAlreadyGuessed(false)}
+        message="Already Guessed"
+        key={"already-guessed"} />
       <Board
         completed={completed}
         deck={[...deck]}
         toggleCard={handleClick} />
       {completed.length === 4 ? (<div >
         <div>You win!</div>
-        <div>{buildEmojiResponse(props.categories, guessHistory).map((guess) => {
-          return (<div>
+        <div>{buildEmojiResponse(props.categories, guessHistory).map((guess, i) => {
+          return (<div key={`guess-${i}`}>
             {...guess}
           </div>);
         })}</div>

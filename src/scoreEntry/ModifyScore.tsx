@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { formatTime, getTimeInSeconds } from "../utils/timeFormatter";
+import { formatTime, getTimeInSeconds } from "../utils/TimeFormatter";
 
 interface ModifyScoreProps {
   timeInSeconds?: number;

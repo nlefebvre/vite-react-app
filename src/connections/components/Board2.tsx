@@ -33,6 +33,7 @@ const Board = (props: BoardProps) => {
           padding: '10px',
           margin: '3px',
           minHeight: '80px',
+          minWidth: '600px',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',

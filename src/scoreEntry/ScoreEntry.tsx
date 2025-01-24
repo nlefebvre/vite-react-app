@@ -3,7 +3,7 @@ import type { Schema } from "../../amplify/data/resource";
 import { generateClient } from "aws-amplify/data";
 import ModifyScore from "./ModifyScore";
 import { getCurrentUser } from 'aws-amplify/auth';
-import { formatTime } from "../utils/timeFormatter";
+import { formatTime } from "../utils/TimeFormatter";
 
 const client = generateClient<Schema>();
 
@@ -130,7 +130,7 @@ function ScoreEntry() {
             onChange={(event) => updateTime(event.target.value)}
           />
 
-          <button onClick={updateEntry}>submit</button>
+          {/* <button onClick={(val) =>updateEntry()}>submit</button> */}
         </>)
       }
     </>);

@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { board } from "./exampleBoard";
 
 
@@ -12,15 +12,15 @@ type cards = cats['cards'][0]
 
 
 
-const getInitialRows = (categories: cats[]): Array<Array<cards>> => {
-  const rows: Array<Array<cards>> = [[], [], [], []];
-  categories.forEach((category) => {
-    category.cards.forEach((card) => {
-      rows[Math.floor(card.position / 4)][card.position % 4] = card;
-    })
-  });
-  return rows;
-}
+// const getInitialRows = (categories: cats[]): Array<Array<cards>> => {
+//   const rows: Array<Array<cards>> = [[], [], [], []];
+//   categories.forEach((category) => {
+//     category.cards.forEach((card) => {
+//       rows[Math.floor(card.position / 4)][card.position % 4] = card;
+//     })
+//   });
+//   return rows;
+// }
 
 const getOrdered = (categories: cats[]): Array<cards> => {
   const rows: Array<cards> = [];
@@ -63,7 +63,7 @@ const isCorrect = (categories: cats[], cards: cards[]): boolean => {
 }
 
 const Board = (props: GameProps) => {
-  const rows = useMemo(() => getInitialRows(props.categories), [props]);
+  // const rows = useMemo(() => getInitialRows(props.categories), [props]);
   const [completed, setCompleted] = useState<Array<cats>>([])
   const [row, setRow] = useState(getOrdered(props.categories));
   const [selected, setSelected] = useState<Record<string, boolean>>({});

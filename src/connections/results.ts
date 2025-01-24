@@ -1,4 +1,3 @@
-import { card } from "./components/Board2";
 import { category, GuessHistoryEntry } from "./components/Game"
 
 const emojiMap: Record<string, string> = {
@@ -33,7 +32,7 @@ export const copyToClipboard = (title: string, his: Array<Array<string>>) => {
 
 
 export const loadHistory = (date: string): Array<GuessHistoryEntry> => {
-  return JSON.parse(localStorage.getItem(`connictions-${date}`));
+  return JSON.parse(localStorage.getItem(`connictions-${date}`) ?? '[]');
 
 }
 
